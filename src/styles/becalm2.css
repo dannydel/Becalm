@@ -1,0 +1,139 @@
+:root {
+  --def: black;
+  --inv: #fff;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+#Title-Wrapper {
+  line-height: 1px;
+}
+
+#Title-line {
+  width: 325px;
+  height: 1px;
+  margin: 5px auto;
+  border-bottom: 0.5px solid;
+}
+
+#theme-button {
+  display: block;
+  position: absolute;
+  outline: none;
+
+  height: 50px;
+  width: 50px;
+  font-weight: 400;
+
+  margin-top: 8px;
+  margin-left: 80px;
+  border-radius: 50%;
+  border: 1px solid;
+  cursor: pointer;
+  z-index: 1;
+}
+
+#theme-button:hover {
+  background-position: left bottom;
+}
+
+/** Stars **/
+#space,
+.stars {
+  display: flex;
+  flex: auto;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -100;
+}
+
+.stars {
+  background-image: radial-gradient(
+      3.2px 3.2px at 20px 30px,
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(1px 1px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2.4px 2.4px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+    radial-gradient(3px 3px at 90px 40px, #fff, rgba(0, 0, 0, 0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.7;
+}
+
+.stars:nth-child(1) {
+  background-position: 50% 50%;
+}
+.stars:nth-child(2) {
+  background-position: 20% 60%;
+  animation: twinkle 6s 2s infinite;
+}
+.stars:nth-child(3) {
+  background-position: -20% -30%;
+}
+.stars:nth-child(4) {
+  background-position: 40% -80%;
+  animation: twinkle ease-in 2s 1s infinite;
+}
+.stars:nth-child(5) {
+  background-position: -20% 30%;
+  animation: twinkle ease-in 3s 4s infinite;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.5;
+  }
+
+  25% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0.9;
+  }
+}
+
+.button {
+  cursor: pointer;
+  outline: none;
+}
+
+.start-wrapper {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  transform: translate(35px, 100px);
+}
+
+.breathe-button:before {
+  background-color: black;
+}
+
+#timer-text {
+  margin: auto 0;
+  font-size: 1.4rem;
+}

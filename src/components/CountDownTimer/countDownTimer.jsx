@@ -8,7 +8,7 @@ const initialState = {
   number: '',
   ticker: '',
   transitionDuration: 850,
-  timeLeft: 30,
+  timeLeft: 1,
   color: '',
   started: false,
 };
@@ -24,12 +24,20 @@ class CountDownTimer extends Component {
     console.log(document.querySelectorAll('.timer-display'));
     let progress = document.querySelector('.circle__progress--fill');
     let number = display.querySelector('.percent__int');
+    let timeLeft = this.props.selectedTime * 60;
     this.setState({
       display,
       progress,
       number,
+      timeLeft,
     });
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedTime !== prevProps.selectedTime) {
+      this.setState({ timeLeft: this.props.selectedTime * 60, ticket: '' });
+    }
+  }
 
   start = () => {
     this.runTimer();
@@ -37,55 +45,8 @@ class CountDownTimer extends Component {
 
   stop = () => {
     this.state.ticker.stop();
-
-    //-- reset the DOM.
     this.reset();
   };
-
-  // onStartClick = (e) => {
-  //   let button = e.target;
-
-  //   if (started) {
-  //     setStart(false);
-  //   } else {
-  //     setStart(true);
-
-  //     setTimeout(() => {
-  //       let startTime = Date.now();
-  //       let timeLeft = 0;
-  //       let duration = 30;
-  //       let text = document.getElementById('timer-text');
-  //       console.log(text);
-  //       setMyInterval(
-  //         setInterval(() => {
-  //           timeLeft = duration - (((Date.now() - startTime) / 1000) | 0);
-  //           text.innerHTML = timeLeft.toString();
-
-  //           if (timeLeft === 0) {
-  //             setStart(false);
-  //             console.log(interval);
-  //             clearInterval(interval);
-  //             setMyInterval(function () {}, 0);
-  //             return;
-  //           }
-  //         }, duration)
-  //       );
-  //     }, 2000);
-  //   }
-  // };
-
-  // onStopClick = (e) => {
-  //   let button = e.target;
-
-  //   if (started) {
-  //     setStart(false);
-  //     console.log(interval);
-  //     clearInterval(interval);
-  //     setMyInterval(function () {}, 0);
-  //   } else {
-  //     setStart(true);
-  //   }
-  // };
 
   handleStartClick = (e) => {
     let started = this.state.started;
@@ -163,13 +124,6 @@ class CountDownTimer extends Component {
     this.setState({ state: initialState });
   };
 
-  // style = {
-  //   position: 'absolute',
-  //   height: '200px',
-  //   width: '200px',
-  //   border: '1px solid black',
-  // };
-
   render() {
     let started = this.state.started;
     return (
@@ -213,7 +167,7 @@ class CountDownTimer extends Component {
                 </svg>
                 <div className='percent'>
                   <span className='percent__int'>{this.state.timeLeft}</span>
-                  <span className='percent__dec'>00</span>
+                  {/* <span className='percent__dec'>00</span> */}
                 </div>
               </div>
             </div>

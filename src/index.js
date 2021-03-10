@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import '../src/styles/becalm.css';
+import '../src/styles/styles.css';
 import App from './App';
 
 ReactDOM.render(

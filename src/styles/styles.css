@@ -133,6 +133,10 @@ h2 {
   transform: translate(35px, 100px);
 }
 
+.inline-wrapper {
+  transform: translate(-40px, 0px);
+}
+
 .breathe-button:before {
   background-color: black;
 }

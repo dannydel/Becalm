@@ -72,9 +72,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 - [x]  Put the start, stop,reset, timer functions inside the count down timer component
 - [x]  Set up count down timer styles in the global.js to work with theme picker.
 - [x]  Add a time input for the user.
-- []  Make time readable in minutes and seconds. Switch to only show seconds when seconds are left.
+- [x]  Make time readable in minutes and seconds. Switch to only show seconds when seconds are left.
 - []  Full code cleanup
-- []  Fix issue with timer showing too far to the left when clicking start.
+- [x]  Fix issue with timer showing too far to the left when clicking start.
 - []  Test on mobile
 - []  Host on surge
 - [x]  Remove the two becalm css files and just have the one (delete becalm.css and rename becalm2.css to belcam.css)

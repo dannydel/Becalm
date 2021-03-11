@@ -7,7 +7,7 @@ const initialState = {
   progress: '',
   number: '',
   ticker: '',
-  transitionDuration: 850,
+  transitionDuration: 1000,
   timeLeft: 1,
   color: '',
   started: false,
@@ -20,11 +20,11 @@ class CountDownTimer extends Component {
   }
 
   componentDidMount = () => {
-    let display = document.querySelectorAll('.timer-display')[0];
-    console.log(document.querySelectorAll('.timer-display'));
-    let progress = document.querySelector('.circle__progress--fill');
-    let number = display.querySelector('.percent__int');
-    let timeLeft = this.props.selectedTime * 60;
+    let { selectedTime } = this.props;
+    const display = document.querySelectorAll('.timer-display')[0];
+    const progress = document.querySelector('.circle__progress--fill');
+    const number = display.querySelector('.percent__int');
+    const timeLeft = selectedTime * 60;
     this.setState({
       display,
       progress,
@@ -44,30 +44,27 @@ class CountDownTimer extends Component {
   };
 
   stop = () => {
-    this.state.ticker.stop();
+    const { ticker } = this.state;
+    ticker.stop();
     this.reset();
   };
 
   handleStartClick = (e) => {
-    let started = this.state.started;
-    this.setState({ started: !this.state.started });
+    const { started } = this.state;
+    this.setState({ started: !started });
     if (started) {
       this.setState({ started: false });
     } else {
-      document.getElementsByClassName('count-wrapper')[0].style =
-        'display:block';
       this.setState({ started: true });
       this.start();
     }
   };
 
   handleStopClick = (e) => {
-    let started = this.state.started;
+    const { started } = this.state;
 
     if (started) {
       this.setState({ started: false });
-      document.getElementsByClassName('count-wrapper')[0].style =
-        'display:none';
       this.stop();
     } else {
       this.setState({ started: true });
@@ -75,21 +72,14 @@ class CountDownTimer extends Component {
   };
 
   runTimer = () => {
-    let {
-      display,
-      progress,
-      timeLeft,
-      number,
-      transitionDuration,
-    } = this.state;
-    let constantTime = timeLeft;
-    console.log(number);
-    let radius = progress.r.baseVal.value;
-    let circumference = 2 * Math.PI * radius;
+    let { progress, timeLeft, number, transitionDuration } = this.state;
+    const constantTime = timeLeft;
+    const radius = progress.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+    const classScope = this;
 
     let doWork = function () {
       timeLeft--;
-      console.log(timeLeft);
       let offset = (circumference * (constantTime - timeLeft)) / constantTime;
 
       progress.style.setProperty('--initialStroke', circumference);
@@ -98,9 +88,7 @@ class CountDownTimer extends Component {
         `${transitionDuration}ms`
       );
       progress.style.strokeDashoffset = offset;
-      console.log(number);
-      number.innerHTML = timeLeft;
-      //this.setState({ timeLeft });
+      number.innerHTML = classScope.CalculateTimeLeft(timeLeft);
     };
 
     let ticker = new Timer(doWork, 1000, function () {
@@ -110,22 +98,31 @@ class CountDownTimer extends Component {
     this.setState({ ticker });
 
     //-- Stop the Ticker.
-    //-- 1050 to allow for time to get to 0
-    setTimeout(() => ticker.stop(), timeLeft * 1020);
+    //-- 1020 to allow for time to get to 0
+    setTimeout(() => ticker.stop(), timeLeft * 1010);
+  };
+
+  CalculateTimeLeft = (time) => {
+    let minutes = time / 60;
+    let seconds = minutes * 60;
+
+    minutes = time < 60 ? '' : minutes + ':';
+
+    return `${minutes}${seconds}`;
   };
 
   reset = () => {
-    let { number, progress, timeLeft } = this.state;
+    const { number, progress } = this.state;
     progress.style.setProperty('--initialStroke', 0);
     progress.style.setProperty('--transitionDuration', 0);
-
-    number.innerHTML = initialState.timeLeft;
+    progress.style.strokeDashoffset = 100;
+    number.innerHTML = initialState.timeLeft * 60;
 
     this.setState({ state: initialState });
   };
 
   render() {
-    let started = this.state.started;
+    const started = this.state.started;
     return (
       <>
         {!started && (
@@ -146,20 +143,23 @@ class CountDownTimer extends Component {
             ></Button>
           </div>
         )}
-        <div className='count-wrapper' style={{ display: 'none' }}>
+        <div
+          className='count-wrapper'
+          style={{ display: started ? '' : 'none' }}
+        >
           <div className='display-container'>
             <div className='timer-display' data-note='1'>
               <div className='circle'>
                 <svg width='300' height='300' className='circle__svg'>
                   <circle
-                    cx='189'
+                    cx='185'
                     cy='120'
                     r='110'
                     className='circle__progress circle__progress--path'
                   ></circle>
 
                   <circle
-                    cx='189'
+                    cx='185'
                     cy='120'
                     r='110'
                     className='circle__progress circle__progress--fill'

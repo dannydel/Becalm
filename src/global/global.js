@@ -81,6 +81,7 @@ export const GlobalStyles = createGlobalStyle`
       
       cursor: pointer;
       user-select: none;
+      transform: translate(0px, -10px);
     }
 
   .start:hover, .stop:hover {
@@ -107,7 +108,7 @@ export const GlobalStyles = createGlobalStyle`
     text-align: center;
     display: flex;
     justify-content: center;
-    transform: translateY(50px);
+    transform: translate(10px,-5px);
   }
 
   /* Count Down Timer Styles */
@@ -124,9 +125,9 @@ export const GlobalStyles = createGlobalStyle`
   
   .circle__progress {
     fill: none;
-    stroke-width: 3;
+    stroke-width: 10;
     stroke-opacity: 0.3;
-    stroke-linecap: round;
+    stroke-linecap: square;
   }
   
   .timer-display .circle__progress {
@@ -139,14 +140,14 @@ export const GlobalStyles = createGlobalStyle`
   
   .percent {
     width: 100%;
-    top: 50%;
-    left: 50%;
     position: absolute;
     font-weight: bold;
     text-align: center;
     line-height: 145px;
-    transform: translate(-40%, -50%);
-    bottom:-40px;
+    top: 50%;
+    left: 50%;
+    bottom: -10%;
+    transform: translate(-77px, -55px);
   }
   
   .percent__int {
@@ -211,6 +212,7 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 footer{
+  padding: 0 0 10px 0;
   position: fixed;
   left: 0;
   bottom: 0;

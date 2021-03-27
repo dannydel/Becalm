@@ -24,7 +24,7 @@ class CountDownTimer extends Component {
     const display = document.querySelectorAll('.timer-display')[0];
     const progress = document.querySelector('.circle__progress--fill');
     const number = display.querySelector('.percent__int');
-    const timeLeft = selectedTime * 60;
+    const timeLeft = this.calculateTimeLeft(selectedTime * 60);
     this.setState({
       display,
       progress,
@@ -88,7 +88,7 @@ class CountDownTimer extends Component {
         `${transitionDuration}ms`
       );
       progress.style.strokeDashoffset = offset;
-      number.innerHTML = classScope.CalculateTimeLeft(timeLeft);
+      number.innerHTML = classScope.calculateTimeLeft(timeLeft);
     };
 
     let ticker = new Timer(doWork, 1000, function () {
@@ -99,14 +99,15 @@ class CountDownTimer extends Component {
 
     //-- Stop the Ticker.
     //-- 1020 to allow for time to get to 0
-    setTimeout(() => ticker.stop(), timeLeft * 1010);
+    setTimeout(() => ticker.stop(), timeLeft * 1000);
   };
 
-  CalculateTimeLeft = (time) => {
+  calculateTimeLeft = (time) => {
     let minutes = time / 60;
-    let seconds = minutes * 60;
+    let seconds = time % 60;
 
-    minutes = time < 60 ? '' : minutes + ':';
+    minutes = time < 60 ? '' : Math.floor(minutes) + ':';
+    seconds = time % 60 < 10 ? '0' + seconds : seconds;
 
     return `${minutes}${seconds}`;
   };
